@@ -1,13 +1,23 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
+	"github.com/o77tsen/den/initializers"
+)
+
+func init() {
+	initializers.LoadEnv()
+	initializers.Connect()
+}
 
 func main() {
-	r := gin.Default()
+	router := gin.Default()
 
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{"message": "pong"})
-	})
+	config := cors.DefaultConfig()
+	config.AllowOrigins = []string{"http://localhost:3000"}
 
-	r.Run()
+	router.Use(cors.New(config))
+
+	router.Run()
 }
