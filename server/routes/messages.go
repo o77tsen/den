@@ -11,5 +11,6 @@ func MessageRoutes(route *gin.Engine) {
 		v1.GET("/messages", controllers.GetAllMessages)
 		v1.GET("/message/:id", controllers.GetMessage)
 		v1.POST("/messages", controllers.CreateMessage)
+		v1.DELETE("/message/:id", controllers.DeleteMessage)
 	}
 }

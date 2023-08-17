@@ -54,3 +54,15 @@ func CreateMessage(c *gin.Context) {
 
 	c.JSON(http.StatusCreated, gin.H{"status": "success", "data": newMessage})
 }
+
+func DeleteMessage(c *gin.Context) {
+	id := c.Param("id")
+
+	result := initializers.DB.Delete(&models.Message{}, id)
+	if result.Error != nil {
+		c.JSON(http.StatusNotFound, gin.H{"status": "invalid", "message": "Message not found"})
+		return
+	}
+
+	c.JSON(http.StatusNoContent, nil)
+}
